@@ -9,6 +9,13 @@ $statement->execute();
 $posts = $statement->fetchAll();
 
 
+if($_SERVER['REQUEST_METHOD']== 'POST' && isset($_POST['DELETE']))
+{
+  $post_id = $_POST['post_id'];
+  $statement = $pdo->prepare("DELETE  FROM posts WHERE id=?");
+  $statement->execute([$post_id]);
+}
+
 ?>
 
 <main>
@@ -42,12 +49,20 @@ $posts = $statement->fetchAll();
           <div class="card shadow-sm">
             <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
             <div class="card-body">
-              <h5><?php echo $post['title'] ?></h5>
+              <a href="post.php?id=<?php echo $post['id'] ?>">
+                 <h5><?php echo $post['title'] ?></h5>
+              </a>
               <p class="card-text"><? echo $post['body'] ?></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+
+                  <form method="POST" action=""> 
+                    <input type="hidden" name="post_id" valur="<?php echo $post['id']?>">
+                    <input type="hidden" name="DELETE">
+                  <button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
+                  </form>
+
                 </div>
                 <small class="text-body-secondary"><? echo $post['created_at'] ?></small>
               </div>
