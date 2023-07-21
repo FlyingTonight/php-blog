@@ -58,7 +58,7 @@ if($_SERVER['REQUEST_METHOD']== 'POST' && isset($_POST['DELETE']))
                   <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
 
                   <form method="POST" action=""> 
-                    <input type="hidden" name="post_id" valur="<?php echo $post['id']?>">
+                    <input type="hidden" name="post_id" value="<?php echo $post['id']?>">
                     <input type="hidden" name="DELETE">
                   <button type="submit" class="btn btn-sm btn-outline-secondary">Delete</button>
                   </form>
